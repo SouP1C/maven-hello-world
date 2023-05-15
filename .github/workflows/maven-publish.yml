@@ -52,3 +52,13 @@ jobs:
         echo "$tag"
         docker build . --file my-app/Dockerfile --tag ${{secrets.DOCKER_USER}}/java-hello-world:$tag
         docker push ${{secrets.DOCKER_USER}}/java-hello-world:$tag
+  container-test-job:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    container:
+      image: soup1c/java-hello-world:1.0.0
+      credentials:
+        username: ${{secrets.DOCKER_USER}}
+        password: ${{secrets.DOCKER_PASSWORD}}
