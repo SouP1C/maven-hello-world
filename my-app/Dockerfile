@@ -6,6 +6,6 @@ RUN useradd -ms /bin/bash runner
 
 FROM eclipse-temurin:8 AS run
 RUN mkdir /opt/app
-COPY --from=build my-app.class .
+COPY --from=build App.class .
 USER runner
-CMD java my-app
+CMD java App
