@@ -60,3 +60,7 @@ jobs:
       uses: addnab/docker-run-action@v3
       with:
         image: ${{secrets.DOCKER_USER}}/java-hello-world:1.0.0
+        args: |
+          su - runner
+          java -jar /opt/app/my-app.jar
+        
