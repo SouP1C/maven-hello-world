@@ -37,4 +37,5 @@ jobs:
       run: |
         artifact=$(find artifacts/ -name "my-app*")
         tag="${artifact:7}"
+        echo "$tag"
         docker build . --file my-app/Dockerfile --tag $tag
