@@ -44,14 +44,15 @@ jobs:
         password: ${{secrets.DOCKER_PASSWORD}}
     
     
-    - name: Build the Docker image
+    - name: Build & tag the Docker image
       run: |
         artifact=$(find artifacts/ -name "my-app*")
         tag="${artifact:17}"
         tag="${tag%.*}"
         echo "$tag"
         docker build . --file my-app/Dockerfile --tag ${{secrets.DOCKER_USER}}/java-hello-world
-        
+        docker tag ${{secrets.DOCKER_USER}}/java-hello-world ${{secrets.DOCKER_USER}}/$tag
+
         
     - name: docker push
       run: docker push ${{secrets.DOCKER_USER}}/java-hello-world
