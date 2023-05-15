@@ -58,7 +58,8 @@ jobs:
         
     - name: Run the build process with Docker
       run: |
-        docker run test_app soup1c/java-hello-world:1.0.0
+      
+        docker run soup1c/java-hello-world:1.0.0
         
     - run: |
         releaseVersion=$(curl --silent "https://api.github.com/repos/knicknic/temp-kubernetes-ci/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
