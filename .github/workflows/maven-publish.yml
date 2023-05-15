@@ -35,3 +35,8 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: test artifact
+        path: my-app/target/
+    - run: whoami
+           pwd
+           ls -la
+           
