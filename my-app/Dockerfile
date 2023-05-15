@@ -1,8 +1,8 @@
 FROM maven:3.5.0-jdk-8-alpine AS builder
 
 # add pom.xml and source code
-ADD ./pom.xml pom.xml
-ADD ./src src/
+ADD ./my-app/pom.xml pom.xml
+ADD ./my-app/src src/
 
 # package jar
 RUN mvn clean package
