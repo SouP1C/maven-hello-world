@@ -35,6 +35,6 @@ jobs:
         
     - name: Build the Docker image
       run: |
-        artifact=$(find artifacts/ -n "my-app*")
+        artifact=$(find artifacts/ -name "my-app*")
         tag=new_name="${artifact%.*}"
         docker build . --file my-app/Dockerfile --tag $tag
