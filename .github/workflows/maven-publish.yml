@@ -28,6 +28,6 @@ jobs:
 
     - name: manipulations
       run: |
-        ls -la target/
+        ls -la my-app/target/
         mkdir artifacts
         
