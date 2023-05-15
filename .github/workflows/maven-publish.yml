@@ -24,14 +24,6 @@ jobs:
         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
 
-    - name: pre-Dockerization
-      run: |
-        mkdir artifacts
-        mv my-app/target/my-app* artifacts/
-        echo "showing whats inside artifacts/"
-        ls -la artifacts/
-        
-        
     - name: docker login
       uses: docker/login-action@v2.1.0
       with:
@@ -39,18 +31,16 @@ jobs:
         password: ${{secrets.DOCKER_PASSWORD}}
     
     
-#     - name: Build & tag & push the Docker image
-#       run: |
-#         artifact=$(find artifacts/ -name "my-app*")
-#         tag="${artifact:17}"
-#         tag="${tag%.*}"
-#         echo "$tag"
-#         docker build . --file my-app/Dockerfile --tag ${{secrets.DOCKER_USER}}/java-hello-world:$tag
-#         docker push ${{secrets.DOCKER_USER}}/java-hello-world:$tag
+    - name: Build & tag & push the Docker image
+      run: |
+        tag=$(grep "<version>" my-app/pom.xml | head -1)
+        tag=$(echo $tag | awk '{ print substr( $0, 10, length($0)-19 )}')
+        docker build . --file my-app/Dockerfile --tag ${{secrets.DOCKER_USER}}/java-hello-world:$tag
+        docker push ${{secrets.DOCKER_USER}}/java-hello-world:$tag
         
-#     - name: Run the build process with Docker
-#       run: |
-#         docker run soup1c/java-hello-world:1.0.0
+    - name: Run the build process with Docker
+      run: |
+        docker run soup1c/java-hello-world:1.0.0
         
         
   change-and-push:
