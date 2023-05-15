@@ -46,6 +46,9 @@ jobs:
     
     - name: Build & tag & push the Docker image
       run: |
+        echo "0----0"
+        whoami
+        echo "0----0"
         artifact=$(find artifacts/ -name "my-app*")
         tag="${artifact:17}"
         tag="${tag%.*}"
