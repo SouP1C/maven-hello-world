@@ -50,20 +50,26 @@ jobs:
         uses: actions/checkout@v2
       - name: Change something
         run: |
-          THEONEIREAD=$(grep "<version>" my-app/pom.xml | head -1)
-          THEONEIREAD=$(echo $THEONEIREAD | awk -F- -v OFS=> '{print $2}')
-          THEONEIREAD=$(echo $THEONEIREAD | awk -F- -v OFS=< '{print $1}')
-          echo $THEONEIREAD | awk -F- -v OFS=. 'print "components are: $1,$2,$3"'
-          echo $THEONEIREAD
+          tag=$(grep "<version>" my-app/pom.xml | head -1)
+          tag=$(echo $tag | awk '{ print substr( $0, 10, length($0)-19 )}')
+          echo $tag          
+#       done for today, i have here the 1.0.0,
+#       i need to increase patch #, and commit the change.
+
 #       - name: Commit and push changes
 #         uses: devops-infra/action-commit-push@master
 #         with:
 #           github_token: ${{ secrets.GITHUB_TOKEN }}
-#           commit_message: Replaced version
+#           commit_message: Replaced semantic versioning
         
         
         
-        
+# This is a failing kubernetes cluster.
+#
+
+
+
+
 #       - run: |
 #         releaseVersion=$(curl --silent "https://api.github.com/repos/knicknic/temp-kubernetes-ci/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
 #         curl -sSL "https://github.com/KnicKnic/temp-kubernetes-ci/releases/download/$releaseVersion/linux.sh" | sh        
