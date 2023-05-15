@@ -25,9 +25,17 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B package --file my-app/pom.xml
+      
+    - name: Build with Maven2
+      run: mvn -B package --file my-app/pom.xml
 
-    - name: manipulations
+    - name: pre-Dockerization
       run: |
         ls -la my-app/target/
         mkdir artifacts
+        mv my-app/target/my-app* artifacts/my-app.jar
         
+    - name: Build the Docker image
+      run: |
+        tag=test
+        docker build . --file my-app/Dockerfile --tag $tag
