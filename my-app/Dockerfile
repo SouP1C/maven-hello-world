@@ -1,13 +1,6 @@
-FROM eclipse-temurin:8 AS build
+FROM eclipse-temurin:8
 RUN mkdir /opt/app
-COPY my-app/src/main/java/com/mycompany/app/App.java /opt/app/my-app.java
-RUN javac /opt/app/my-app.java
-
-
-
-FROM eclipse-temurin:8 AS run
-RUN mkdir /opt/app
-COPY --from=build /opt/app/App.class .
+COPY artifacts/my-app-1.0.0.jar /opt/app/my-app.jar
 RUN useradd -ms /bin/bash runner
 USER runner
-CMD java App
+CMD [ "java", "-jar", "/opt/app/my-app.jar" ]
