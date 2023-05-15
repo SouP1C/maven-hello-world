@@ -61,3 +61,9 @@ jobs:
       with:
         image: ${{secrets.DOCKER_USER}}/java-hello-world:1.0.0
         
+    - name: Github Action | Helm Deployment
+      uses: crazyfree/helm-deploy-githhub-action@v1.0.5
+      with:
+        release: hello-world-java
+        namespace: default
+        chart: /my-app/helm
