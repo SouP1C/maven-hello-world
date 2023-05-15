@@ -69,7 +69,7 @@ jobs:
         -v /var/run/docker.sock:/var/run/docker.sock \
         jetstack/hyperkube:v1.0.3 \
         /hyperkube kubelet --api_servers=http://127.0.0.1:8080 --v=2 --address=0.0.0.0 --enable_server --hostname_override=127.0.0.1 --config=/etc/kubernetes/manifests --cluster_dns=10.0.0.10 --cluster_domain=cluster.local
-        
+        kubectl cluster-info
         
     - name: Github Action | Helm Deployment
       uses: crazyfree/helm-deploy-githhub-action@v1.0.5
