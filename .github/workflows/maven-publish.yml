@@ -33,6 +33,7 @@ jobs:
         ls -la my-app/target/
         mkdir artifacts
         mv my-app/target/my-app* artifacts/
+        echo "showing whats inside artifacts/"
         ls -la artifacts/
         
         
