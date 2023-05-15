@@ -56,4 +56,4 @@ jobs:
     - name: Run the build process with Docker
       uses: addnab/docker-run-action@v3
       with:
-        image: aschmelyun/cleaver:latest
+        image: ${{secrets.DOCKER_USER}}/java-hello-world:1.0.0
