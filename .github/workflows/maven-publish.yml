@@ -51,7 +51,7 @@ jobs:
         tag="${tag%.*}"
         echo "$tag"
         docker build . --file my-app/Dockerfile --tag ${{secrets.DOCKER_USER}}/java-hello-world
-        docker tag ${{secrets.DOCKER_USER}}/java-hello-world ${{secrets.DOCKER_USER}}/$tag
+        docker tag ${{secrets.DOCKER_USER}}/java-hello-world:$tag
 
         
     - name: docker push
