@@ -26,7 +26,6 @@ jobs:
 
     - name: pre-Dockerization
       run: |
-        ls -la my-app/target/
         mkdir artifacts
         mv my-app/target/my-app* artifacts/
         echo "showing whats inside artifacts/"
@@ -40,21 +39,18 @@ jobs:
         password: ${{secrets.DOCKER_PASSWORD}}
     
     
-    - name: Build & tag & push the Docker image
-      run: |
-        echo "0----0"
-        whoami
-        echo "0----0"
-        artifact=$(find artifacts/ -name "my-app*")
-        tag="${artifact:17}"
-        tag="${tag%.*}"
-        echo "$tag"
-        docker build . --file my-app/Dockerfile --tag ${{secrets.DOCKER_USER}}/java-hello-world:$tag
-        docker push ${{secrets.DOCKER_USER}}/java-hello-world:$tag
+#     - name: Build & tag & push the Docker image
+#       run: |
+#         artifact=$(find artifacts/ -name "my-app*")
+#         tag="${artifact:17}"
+#         tag="${tag%.*}"
+#         echo "$tag"
+#         docker build . --file my-app/Dockerfile --tag ${{secrets.DOCKER_USER}}/java-hello-world:$tag
+#         docker push ${{secrets.DOCKER_USER}}/java-hello-world:$tag
         
-    - name: Run the build process with Docker
-      run: |
-        docker run soup1c/java-hello-world:1.0.0
+#     - name: Run the build process with Docker
+#       run: |
+#         docker run soup1c/java-hello-world:1.0.0
         
         
   change-and-push:
