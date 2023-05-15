@@ -1,6 +1,16 @@
-FROM eclipse-temurin:8
-RUN mkdir /opt/app
-COPY artifacts/my-app-1.0.0.jar /opt/app/my-app.jar
-RUN useradd -ms /bin/bash runner
-USER runner
-CMD [ "java", "-jar", "/opt/app/my-app.jar" ]
+FROM maven:3.5.0-jdk-8-alpine AS builder
+
+# add pom.xml and source code
+ADD ./pom.xml pom.xml
+ADD ./src src/
+
+# package jar
+RUN mvn clean package
+
+# Second stage: minimal runtime environment
+From openjdk:8-jre-alpine
+
+# copy jar from the first stage
+COPY --from=builder target/my-app-1.0.0.jar my-app-1.0.0.jar
+
+CMD ["java", "-jar", "my-app-1.0.0.jar"]
