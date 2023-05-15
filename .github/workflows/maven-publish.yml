@@ -25,14 +25,12 @@ jobs:
 
     - name: Build with Maven
       run: |
+        ls -la my-app
+        mvn -B package --file my-app/pom.xml
         ls -la my-app/target
         mvn -B package --file my-app/pom.xml
         ls -la my-app/target
-      
-    - name: Build with Maven2
-      run: |
-        mvn -B package --file my-app/pom.xml
-        ls -la my-app/target
+
 
     - name: pre-Dockerization
       run: |
