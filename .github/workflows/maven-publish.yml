@@ -36,7 +36,7 @@ jobs:
       with:
         name: test artifact
         path: my-app/target/
-    - run: whoami
-           pwd
-           ls -la
-           
+    - run: |
+        pwd
+        ls -la
+        whoami   
