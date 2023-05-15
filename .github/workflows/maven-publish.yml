@@ -63,19 +63,9 @@ jobs:
         
         
     - run: |
-        docker run \
-        --net=host \
-        -d \
-        -v /var/run/docker.sock:/var/run/docker.sock \
-        jetstack/hyperkube:v1.0.3 \
-        /hyperkube kubelet --api_servers=http://127.0.0.1:8080 --v=2 --address=0.0.0.0 --enable_server --hostname_override=127.0.0.1 --config=/etc/kubernetes/manifests --cluster_dns=10.0.0.10 --cluster_domain=cluster.local
-        docker run \
-        -d \
-        --net=host \
-        --privileged \
-        jetstack/hyperkube:v1.0.3 \
-        /hyperkube proxy --master=http://127.0.0.1:8080 --v=2
-        kubectl cluster-info
+        releaseVersion=$(curl --silent "https://api.github.com/repos/knicknic/temp-kubernetes-ci/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
+        curl -sSL "https://github.com/KnicKnic/temp-kubernetes-ci/releases/download/$releaseVersion/linux.sh" | sh        
+        
         
     - name: Github Action | Helm Deployment
       uses: crazyfree/helm-deploy-githhub-action@v1.0.5
