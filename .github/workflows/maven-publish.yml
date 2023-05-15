@@ -58,7 +58,6 @@ jobs:
         
     - name: Run the build process with Docker
       run: |
-      
         docker run soup1c/java-hello-world:1.0.0
         
     - run: |
