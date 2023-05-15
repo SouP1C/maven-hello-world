@@ -49,7 +49,7 @@ jobs:
         tag="${artifact:17}"
         tag="${tag%.*}"
         echo "$tag"
-        docker build . -t ${{secrets.DOCKER_USER}}/java-hello-world
+        docker build ./my-app -t ${{secrets.DOCKER_USER}}/java-hello-world
         
         
     - name: docker push
