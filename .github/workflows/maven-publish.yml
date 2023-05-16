@@ -50,16 +50,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Change something
         run: |
-          tag=$(grep "<version>" my-app/pom.xml | head -1)
-          tag=$(echo $tag | awk '{ print substr( $0, 10, length($0)-19 )}')
-          semVer=${tag//./ }
-          read -a semVer <<< $semVer
-          (( semVer[2]++ ))
-          newVersion=${semVer[@]}
-          newVersion=${newVersion// /.}
-          echo $newVersion
-          echo "replacing pom.xml versionning."
-          sed -i "s/$tag/$newVersion/g" my-app/pom.xml
+          echo "hello world"
           
           
       - name: Commit and push changes
