@@ -68,14 +68,28 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: Replaced semantic versioning
         
-        
-        
+  k3s:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        k8s_version: [latest,v1.21.2-k3s1,v1.20.8-k3s1,v1.19.12-k3s1]
+    steps:
+    - uses: debianmaster/actions-k3s@master
+      id: k3s
+      with:
+        version: ${{ matrix.k8s_version }}
+    - name: Test on k3s
+      run: |
+        kubectl get nodes  
+        helm upgrade --install my-app/helm/.
+        kubectl get pods
+
+
+
+
+
 # This is a failing kubernetes cluster.
 #
-
-
-
-
 #       - run: |
 #         releaseVersion=$(curl --silent "https://api.github.com/repos/knicknic/temp-kubernetes-ci/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
 #         curl -sSL "https://github.com/KnicKnic/temp-kubernetes-ci/releases/download/$releaseVersion/linux.sh" | sh        
