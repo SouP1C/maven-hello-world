@@ -11,6 +11,6 @@ RUN mvn clean package
 From openjdk:8-jre-alpine
 
 # copy jar from the first stage
-COPY --from=builder target/my-app-1.0.0.jar my-app-1.0.0.jar
+COPY --from=builder target/my-app-* my-app.jar
 
-CMD ["java", "-jar", "my-app-1.0.0.jar"]
+CMD ["java", "-jar", "my-app.jar"]
