@@ -52,8 +52,14 @@ jobs:
         run: |
           tag=$(grep "<version>" my-app/pom.xml | head -1)
           tag=$(echo $tag | awk '{ print substr( $0, 10, length($0)-19 )}')
-          echo $tag | awk 'BEGIN {FS="." ; {$(($4 + 1))}}'
-          echo $tag
+          semVer=$(${tag//./})
+          (( semVer[2]++ ))
+          newVersion=${semVer[@]}
+          newVersion=${newVersion// /.}
+          echo $newVersion
+          echo "replacing pom.xml versionning."
+          sed "s/$tag/$newVersion/g" my-app/pom.xml
+          
           
       - name: Commit and push changes
         uses: devops-infra/action-commit-push@master
