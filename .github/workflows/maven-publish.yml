@@ -53,6 +53,7 @@ jobs:
           tag=$(grep "<version>" my-app/pom.xml | head -1)
           tag=$(echo $tag | awk '{ print substr( $0, 10, length($0)-19 )}')
           semVer=${tag//./ }
+          read -a semVer <<< $semVer
           (( semVer[2]++ ))
           newVersion=${semVer[@]}
           newVersion=${newVersion// /.}
