@@ -54,6 +54,11 @@ jobs:
           tag=$(echo $tag | awk '{ print substr( $0, 10, length($0)-19 )}')
           semVer=${tag//./ }
           read -a semVer <<< $semVer
+          (( semVer[2]++ ))
+          newVersion=${semVer[@]}
+          newVersion=${newVersion// /.}
+          echo $newVersion
+          echo "replacing pom.xml versionning."
           
           
       - name: Commit and push changes
