@@ -59,7 +59,7 @@ jobs:
           newVersion=${newVersion// /.}
           echo $newVersion
           echo "replacing pom.xml versionning."
-          sed "s/$tag/$newVersion/g" my-app/pom.xml
+          sed -i "s/$tag/$newVersion/g" my-app/pom.xml
           
           
       - name: Commit and push changes
